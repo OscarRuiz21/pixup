@@ -1,0 +1,46 @@
+services:
+  mysql:
+    image: mariadb:10.11
+    container_name: pixup_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: pixupdb
+      MYSQL_USER: pixupdb_owner
+      MYSQL_PASSWORD: pixupdb_password
+    ports:
+      - "3309:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./init:/docker-entrypoint-initdb.d
+    networks:
+      - pixup_net
+
+  adminer:
+    image: adminer
+    container_name: pixup_adminer
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - pixup_net
+
+  wildfly:
+    build: . # <--- Construye la imagen desde el Dockerfile en el directorio actual
+    container_name: pixup_wildfly
+    restart: always
+    ports:
+      - "8081:8080"
+      - "9991:9991"
+    volumes:
+      # Solo mantenemos el volumen de deployments para poder desplegar aplicaciones fácilmente
+      - ./wildfly-deployments:/opt/jboss/wildfly/standalone/deployments
+    networks:
+      - pixup_net
+
+volumes:
+  db_data:
+
+networks:
+  pixup_net:
+
