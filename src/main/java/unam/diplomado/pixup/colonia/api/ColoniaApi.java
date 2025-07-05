@@ -1,6 +1,8 @@
 package unam.diplomado.pixup.colonia.api;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -20,5 +22,16 @@ public interface ColoniaApi {
     @GET
     Collection<Colonia> getColoniasByCp(
             @NotBlank @QueryParam("cp") String cp);
+
+    @DELETE
+    @Path("{id}")
+    void deleteColonia(@PathParam("id") Integer id);
+
+    @POST
+    Response createColonia(@NotNull @Valid Colonia colonia);
+
+    @PUT
+    @Path("{id}")
+    Colonia updateColonia(@PathParam("id") Integer id, Colonia colonia);
 
 }

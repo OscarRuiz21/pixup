@@ -3,6 +3,7 @@ package unam.diplomado.pixup.colonia.api;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
 import unam.diplomado.pixup.colonia.domain.Colonia;
+import unam.diplomado.pixup.colonia.domain.ColoniaAlreadyExistsException;
 import unam.diplomado.pixup.colonia.domain.ColoniaNotFoundException;
 import unam.diplomado.pixup.colonia.repository.ColoniaRepository;
 import unam.diplomado.pixup.colonia.service.ColoniaService;
@@ -49,6 +50,38 @@ public class ColoniaResource implements ColoniaApi {
     @Override
     public Collection<Colonia> getColoniasByCp(String cp) {
         return coloniaRepository.findByCp(cp);
+    }
+
+    @Override
+    public Response createColonia(Colonia colonia) {
+        try {
+            Colonia coloniaCreada = coloniaService.crearColonia(colonia);
+            return Response
+                    .status(Response.Status.CREATED)
+                    .entity(coloniaCreada)
+                    .build();
+        } catch (Exception e) {
+            if (e.getCause() instanceof ColoniaAlreadyExistsException) {
+                return Response
+                        .status(Response.Status.CONFLICT)
+                        .entity(e.getCause().getMessage())
+                        .build();
+            }
+            return Response
+                    .status(Response.Status.PRECONDITION_REQUIRED)
+                    .entity(e.getCause().getMessage())
+                    .build();
+        }
+    }
+
+    @Override
+    public void deleteColonia(Integer id) {
+
+    }
+
+    @Override
+    public Colonia updateColonia(Integer id, Colonia colonia) {
+        return null;
     }
 
 }

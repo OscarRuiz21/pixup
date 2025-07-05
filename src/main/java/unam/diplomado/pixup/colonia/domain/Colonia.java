@@ -12,6 +12,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @Entity
+@Table(name = "colonia")
 public class Colonia implements Serializable {
 
     @Id
