@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import unam.diplomado.pixup.colonia.api.dto.ColoniaDTO;
 import unam.diplomado.pixup.colonia.domain.Colonia;
 
 import java.util.Collection;
@@ -17,10 +18,10 @@ public interface ColoniaApi {
 
     @GET
     @Path("{id}")
-    Response getColoniaById(@PathParam("id") Integer id);
+    Colonia getColoniaById(@PathParam("id") Integer id);
 
     @GET
-    Collection<Colonia> getColoniasByCp(
+    Collection<ColoniaDTO> getColoniasByCp(
             @NotBlank @QueryParam("cp") String cp);
 
     @DELETE

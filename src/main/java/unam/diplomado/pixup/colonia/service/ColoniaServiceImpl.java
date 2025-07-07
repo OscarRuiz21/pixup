@@ -68,8 +68,8 @@ public class ColoniaServiceImpl implements ColoniaService {
         coloniaActualizar.setNombre(colonia.getNombre());
         coloniaActualizar.setCp(colonia.getCp());
 
-        coloniaRepository.saveOrUpdate(colonia);
-        return colonia;
+        coloniaRepository.saveOrUpdate(coloniaActualizar);
+        return coloniaActualizar;
     }
 
     @Override
