@@ -1,6 +1,8 @@
 package unam.diplomado.pixup.disco.service;
 
+import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import unam.diplomado.pixup.disco.domain.Disco;
 import unam.diplomado.pixup.disco.domain.exceptions.ArtistaNotFoundException;
 import unam.diplomado.pixup.disco.domain.exceptions.DiscoAlreadyExistsException;
@@ -11,6 +13,7 @@ import unam.diplomado.pixup.disco.repository.DiscoRepository;
 import unam.diplomado.pixup.disco.repository.DisqueraRepository;
 import unam.diplomado.pixup.disco.repository.GeneroMusicalRepository;
 
+@Stateless
 public class DiscoServiceImpl implements DiscoService{
 
     @Inject
@@ -23,7 +26,13 @@ public class DiscoServiceImpl implements DiscoService{
     private DiscoRepository discoRepository;
 
     @Override
+    @Transactional(value = Transactional.TxType.REQUIRED)
     public Disco registrarDisco(Disco disco) {
+
+        if(discoRepository.findByTituloAndArtista(disco.getTitulo(), disco.getArtista().getId()).isPresent()){
+            throw new DiscoAlreadyExistsException(
+                    disco.getTitulo());
+        }
 
         if(!disqueraRepository.findById(disco.getDisquera().getId()).isPresent()){
             throw new DisqueraNotFoundException(disco.getDisquera().getId());
@@ -34,13 +43,11 @@ public class DiscoServiceImpl implements DiscoService{
         if(!generoMusicalRepository.findById(disco.getGeneroMusical().getId()).isPresent()){
             throw new GeneroMusicalNotFoundException(disco.getGeneroMusical().getId());
         }
+        System.out.println("artistaId: " + disco.getArtista().getId());
+        System.out.println("disqueraId: " + disco.getDisquera().getId());
+        System.out.println("generoMusicalId: " + disco.getGeneroMusical().getId());
+        discoRepository.save(disco);
 
-        if(discoRepository.findByTituloAndArtista(disco.getTitulo(), disco.getArtista().getId()).isPresent()){
-            throw new DiscoAlreadyExistsException(
-                    disco.getTitulo());
-        }
-
-        Disco discoSaved= discoRepository.save(disco);
-        return discoSaved;
+        return disco;
     }
 }

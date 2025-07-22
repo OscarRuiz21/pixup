@@ -1,5 +1,6 @@
 package unam.diplomado.pixup.disco.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ public class Disco implements Serializable {
     private double precio;
     private int existencia;
     private double descuento;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date fechaLanzamiento;
     private String imagen;
     @ManyToOne(targetEntity = Disquera.class)

@@ -1,0 +1,18 @@
+{
+  "artista": {
+    "id": 1
+  },
+  "descuento": 10.0,
+  "disquera": {
+    "id": 1
+  },
+  "existencia": 10,
+  "fechaLanzamiento": "2020-11-11T11:12:12Z[UTC]",
+  "generoMusical": {
+    "id": 1
+  },
+  "id": 2,
+  "imagen": "u2_exitos.png",
+  "precio": 100.3,
+  "titulo": "U2 Exitos"
+}
