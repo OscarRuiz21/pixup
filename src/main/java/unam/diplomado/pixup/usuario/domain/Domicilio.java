@@ -31,4 +31,15 @@ public class Domicilio implements Serializable {
     @JoinColumn(name="id_tipo_domicilio", nullable=false)
     private TipoDomicilio tipoDomicilio;
 
+    public Domicilio(
+            String calle, String numExterior, String numInterior,
+            Integer idColonia, Integer idTipoDomicilio) {
+        this.calle = calle;
+        this.numExterior = numExterior;
+        this.numInterior = numInterior;
+        this.colonia = new Colonia();
+        this.colonia.setId(idColonia);
+        this.tipoDomicilio = new TipoDomicilio();
+        this.tipoDomicilio.setId(idTipoDomicilio);
+    }
 }

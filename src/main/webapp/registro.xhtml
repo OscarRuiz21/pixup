@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="jakarta.faces.core"
+      xmlns:h="jakarta.faces.html">
+<f:view>
+    <h:head>
+        <title>Pixup</title>
+    </h:head>
+    <h:body>
+        <h:graphicImage value="resources/images/pixup_logo.png"/>
+        <br/>
+        <h:graphicImage value="resources/images/pixup_registro_usuario.png"/>
+        <br/>
+        <h:graphicImage value="resources/images/pixup_datos_personales.png"/>
+        <h:form>
+            <table>
+                <tr>
+                    <td><h:outputLabel for="nombre">Nombre:</h:outputLabel></td>
+                    <td><h:inputText id="nombre" value="#{registro.usuario.nombre}"/></td>
+                </tr>
+                <tr>
+                    <td><h:outputLabel for="primerApellido">Apellido Paterno:</h:outputLabel></td>
+                    <td><h:inputText id="primerApellido" value="#{registro.usuario.primerApellido}"/></td>
+                </tr>
+                <tr>
+                    <td><h:outputLabel for="segundoApellido">Apellido Materno:</h:outputLabel></td>
+                    <td><h:inputText id="segundoApellido" value="#{registro.usuario.segundoApellido}"/></td>
+                </tr>
+                <tr>
+                    <td><h:outputLabel for="password">Password:</h:outputLabel></td>
+                    <td><h:inputSecret id="password" value="#{registro.usuario.password}"/></td>
+                </tr>
+                <tr>
+                    <td><h:outputLabel for="email">Email:</h:outputLabel></td>
+                    <td><h:inputText id="email" value="#{registro.usuario.email}"/></td>
+                </tr>
+                <tr>
+                    <td><h:outputLabel for="rfc">RFC:</h:outputLabel></td>
+                    <td><h:inputText id="rfc" value="#{registro.usuario.rfc}"/></td>
+                </tr>
+            </table>
+
+            <br/>
+            <h:graphicImage value="resources/images/pixup_domicilio.png"/>
+            <table>
+                <tr>
+                    <td><h:outputLabel for="calle">Calle:</h:outputLabel></td>
+                    <td><h:inputText id="calle" value="#{registro.domicilio.calle}"/></td>
+                </tr>
+                <tr>
+                    <td><h:outputLabel for="numExterior">No. Exterior:</h:outputLabel></td>
+                    <td><h:inputText id="numExterior" value="#{registro.domicilio.numExterior}"/></td>
+                </tr>
+                <tr>
+                    <td><h:outputLabel for="numInterior">No. Interior:</h:outputLabel></td>
+                    <td><h:inputText id="numInterior" value="#{registro.domicilio.numInterior}"/></td>
+                </tr>
+                <tr>
+                    <td><h:outputLabel for="cp">Código Postal:</h:outputLabel></td>
+                    <td>
+                        <h:inputText id="cp" value="#{registro.cp}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <h:commandButton value="Buscar Colonia" action="#{registro.findColoniaByCp}">
+                            <f:ajax execute="cp" event="click" render="coloniaId"/>
+                        </h:commandButton>
+                    </td>
+                </tr>
+                <tr>
+                    <td><h:outputLabel for="coloniaId">Colonia:</h:outputLabel></td>
+                    <td>
+                        <h:selectOneMenu id="coloniaId" value="#{registro.coloniaId}">
+                            <f:selectItem itemValue="#{null}" itemLabel="-- Seleccionar Colonia --" />
+                            <f:selectItems value="#{registro.colonias}" var="colonia" itemValue="#{colonia.id}"
+                                           itemLabel="#{colonia.nombre}-#{colonia.municipio}-#{colonia.estado}"/>
+                        </h:selectOneMenu>
+                    </td>
+                </tr>
+                <tr>
+                    <td><h:outputLabel for="tipoDomicilioId">Tipo Domicilio:</h:outputLabel></td>
+                    <td>
+                        <h:selectOneRadio id="tipoDomicilioId" value="#{registro.tipoDomicilioId}">
+                            <f:selectItems value="#{registro.tiposDomicilio}" var="tipoDomicilio"
+                                           itemValue="#{tipoDomicilio.id}" itemLabel="#{tipoDomicilio.descripcion}"/>
+                        </h:selectOneRadio>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <h:commandButton value="Crear Cuenta" action="#{registro.altaUsuario}"/>
+                    </td>
+                </tr>
+            </table>
+        </h:form>
+    </h:body>
+</f:view>
+</html>

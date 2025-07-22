@@ -15,24 +15,21 @@ import java.util.Collection;
 @Produces(MediaType.APPLICATION_JSON)
 @Path("colonias")
 public interface ColoniaApi {
-
-    @GET
+    @GET //Por defecto regresa un código HTTP 200, por lo que no es necesario armar un Response
     @Path("{id}")
-    Colonia getColoniaById(@PathParam("id") Integer id);
+    Colonia getColoniaById(@PathParam("id") Integer id); //path param --> /colonias/2
 
-    @GET
-    Collection<ColoniaDTO> getColoniasByCp(
-            @NotBlank @QueryParam("cp") String cp);
+    @GET //Por defecto regresa un código HTTP 200, por lo que no es necesario armar un Response
+    Collection<ColoniaDTO> getColoniasByCp(@NotBlank @QueryParam("cp") String cp); //query param --> /colonias?cp=56400
 
-    @DELETE
+    @DELETE //Por defecto regresa un código HTTP 204, por lo que no es necesario armar un Response
     @Path("{id}")
     void deleteColonia(@PathParam("id") Integer id);
 
-    @POST
-    Response createColonia(@NotNull @Valid Colonia colonia);
+    @POST //Por defecto regresa un código HTTP 200, por lo que hay que crear un Response para regresar un 201 de creado
+    Response createColonia(@NotNull @Valid Colonia colonia); //Si no se cumplen las reglas de Validator, regresa un código 400
 
-    @PUT
+    @PUT //Por defecto regresa un código HTTP 200, por lo que no es necesario armar un Response
     @Path("{id}")
     Colonia updateColonia(@PathParam("id") Integer id, Colonia colonia);
-
 }
