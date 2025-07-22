@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 @Data
@@ -21,7 +22,7 @@ public class Disco implements Serializable {
     private int existencia;
     private double descuento;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private Date fechaLanzamiento;
+    private ZonedDateTime fechaLanzamiento;
     private String imagen;
     @ManyToOne(targetEntity = Disquera.class)
     @JoinColumn(name = "id_disquera", nullable = false)
