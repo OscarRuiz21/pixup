@@ -1,6 +1,6 @@
 # Pixup – Servicio de colonias con Jakarta EE
 
-**Pixup** es un proyecto de ejemplo construido con Jakarta EE. El código implementa un servicio REST para gestionar **colonias** y **municipios** (entidades administrativas en México). La aplicación utiliza JPA para el acceso a datos y JTA para transacciones, se empaqueta como archivo WAR y se puede ejecutar en un servidor **WildFly** mediante contenedores Docker.
+**Pixup** es un proyecto de ejemplo construido con Jakarta EE. El código implementa un servicio REST para gestionar una transacciones. La aplicación utiliza JPA para el acceso a datos y JTA para transacciones, se empaqueta como archivo WAR y se puede ejecutar en un servidor **WildFly** mediante contenedores Docker.
 
 ## Características principales
 
